@@ -2,10 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use Illuminate\Http\Request;
 
 class AlunoController extends Controller
 {
+    public function consultas()
+    {
+        $doCurso = Aluno::doCurso('Engenharia de Software')->get();
+        $comNome = Aluno::comNomeContendo('ana')->get();
+        $recentes = Aluno::cadastradosRecentemente(30)->get();
+        $total = Aluno::count();
+
+        return response()->json([
+            'do_curso' => $doCurso,
+            'com_nome_contendo' => $comNome,
+            'cadastrados_recentemente' => $recentes,
+            'total_de_alunos' => $total,
+        ]);
+    }
+
     public function index()
     {
         $alunos = ['Ana Clara', 'Bruno Silva', 'Carla Souza'];
