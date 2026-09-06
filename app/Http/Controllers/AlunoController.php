@@ -33,6 +33,8 @@ class AlunoController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Aluno::class);
+
         $cursos = Curso::orderBy('nome')->get();
 
         return view('alunos.create', compact('cursos'));
@@ -40,6 +42,8 @@ class AlunoController extends Controller
 
     public function store(StoreAlunoRequest $request)
     {
+        $this->authorize('create', Aluno::class);
+
         Aluno::create($request->validated());
 
         return redirect()->route('alunos.index')->with('sucesso', 'Aluno cadastrado com sucesso.');
@@ -55,6 +59,9 @@ class AlunoController extends Controller
     public function edit(string $id)
     {
         $aluno = Aluno::findOrFail($id);
+
+        $this->authorize('update', $aluno);
+
         $cursos = Curso::orderBy('nome')->get();
 
         return view('alunos.edit', compact('aluno', 'cursos'));
@@ -64,6 +71,8 @@ class AlunoController extends Controller
     {
         $aluno = Aluno::findOrFail($id);
 
+        $this->authorize('update', $aluno);
+
         $aluno->update($request->validated());
 
         return redirect()->route('alunos.index')->with('sucesso', 'Aluno atualizado com sucesso.');
@@ -71,7 +80,11 @@ class AlunoController extends Controller
 
     public function destroy(string $id)
     {
-        Aluno::findOrFail($id)->delete();
+        $aluno = Aluno::findOrFail($id);
+
+        $this->authorize('delete', $aluno);
+
+        $aluno->delete();
 
         return redirect()->route('alunos.index')->with('sucesso', 'Aluno removido com sucesso.');
     }
