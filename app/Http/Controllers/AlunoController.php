@@ -8,12 +8,14 @@ class AlunoController extends Controller
 {
     public function index()
     {
-        return 'Listagem de alunos.';
+        $alunos = ['Ana Clara', 'Bruno Silva', 'Carla Souza'];
+
+        return view('alunos.index', compact('alunos'));
     }
 
     public function create()
     {
-        return 'Formulário de cadastro de aluno.';
+        return view('alunos.create');
     }
 
     public function store(Request $request)
@@ -23,12 +25,12 @@ class AlunoController extends Controller
 
     public function show(string $id)
     {
-        return "Detalhes do aluno com ID: {$id}";
+        return view('alunos.show', compact('id'));
     }
 
     public function edit(string $id)
     {
-        return "Formulário de edição do aluno com ID: {$id}";
+        return view('alunos.edit', compact('id'));
     }
 
     public function update(Request $request, string $id)
