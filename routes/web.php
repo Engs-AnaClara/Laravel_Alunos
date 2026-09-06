@@ -18,7 +18,10 @@ Route::get('/contato', function () {
 });
 
 Route::get('/alunos/consultas/demo', [AlunoController::class, 'consultas']);
-Route::resource('alunos', AlunoController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('alunos', AlunoController::class)->except(['index', 'show']);
+});
+Route::resource('alunos', AlunoController::class)->only(['index', 'show']);
 Route::get('/cursos/{curso}', [CursoController::class, 'show'])->name('cursos.show');
 
 Route::get('/produto/{id}', function ($id) {
