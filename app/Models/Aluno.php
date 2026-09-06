@@ -6,15 +6,21 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['name', 'email', 'curso', 'data_nascimento'])]
+#[Fillable(['name', 'email', 'curso_id', 'data_nascimento'])]
 class Aluno extends Model
 {
     use HasFactory;
 
-    public function scopeDoCurso(Builder $query, string $curso): Builder
+    public function curso(): BelongsTo
     {
-        return $query->where('curso', $curso);
+        return $this->belongsTo(Curso::class);
+    }
+
+    public function scopeDoCurso(Builder $query, string $nomeDoCurso): Builder
+    {
+        return $query->whereHas('curso', fn (Builder $q) => $q->where('nome', $nomeDoCurso));
     }
 
     public function scopeComNomeContendo(Builder $query, string $termo): Builder
