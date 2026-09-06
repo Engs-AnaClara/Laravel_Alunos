@@ -8,7 +8,16 @@
     @if (count($alunos) > 0)
         <ul>
             @foreach ($alunos as $aluno)
-                <li>{{ $aluno }}</li>
+                <li>
+                    <a href="{{ route('alunos.show', $aluno) }}">{{ $aluno->name }}</a>
+                    - {{ $aluno->curso }}
+                    <a href="{{ route('alunos.edit', $aluno) }}">Editar</a>
+                    <form method="POST" action="{{ route('alunos.destroy', $aluno) }}" style="display:inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Excluir</button>
+                    </form>
+                </li>
             @endforeach
         </ul>
     @else

@@ -24,7 +24,7 @@ class AlunoController extends Controller
 
     public function index()
     {
-        $alunos = ['Ana Clara', 'Bruno Silva', 'Carla Souza'];
+        $alunos = Aluno::orderBy('name')->get();
 
         return view('alunos.index', compact('alunos'));
     }
@@ -36,26 +36,52 @@ class AlunoController extends Controller
 
     public function store(Request $request)
     {
-        return 'Aluno cadastrado.';
+        $dados = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:alunos,email',
+            'curso' => 'required|string|max:255',
+            'data_nascimento' => 'nullable|date',
+        ]);
+
+        Aluno::create($dados);
+
+        return redirect()->route('alunos.index')->with('sucesso', 'Aluno cadastrado com sucesso.');
     }
 
     public function show(string $id)
     {
-        return view('alunos.show', compact('id'));
+        $aluno = Aluno::findOrFail($id);
+
+        return view('alunos.show', compact('aluno'));
     }
 
     public function edit(string $id)
     {
-        return view('alunos.edit', compact('id'));
+        $aluno = Aluno::findOrFail($id);
+
+        return view('alunos.edit', compact('aluno'));
     }
 
     public function update(Request $request, string $id)
     {
-        return "Aluno com ID {$id} atualizado.";
+        $aluno = Aluno::findOrFail($id);
+
+        $dados = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:alunos,email,' . $aluno->id,
+            'curso' => 'required|string|max:255',
+            'data_nascimento' => 'nullable|date',
+        ]);
+
+        $aluno->update($dados);
+
+        return redirect()->route('alunos.index')->with('sucesso', 'Aluno atualizado com sucesso.');
     }
 
     public function destroy(string $id)
     {
-        return "Aluno com ID {$id} removido.";
+        Aluno::findOrFail($id)->delete();
+
+        return redirect()->route('alunos.index')->with('sucesso', 'Aluno removido com sucesso.');
     }
 }
