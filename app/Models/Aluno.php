@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['name', 'email', 'curso_id', 'data_nascimento'])]
+#[Fillable(['name', 'email', 'curso_id', 'user_id', 'data_nascimento'])]
 class Aluno extends Model
 {
     use HasFactory;
@@ -16,6 +16,11 @@ class Aluno extends Model
     public function curso(): BelongsTo
     {
         return $this->belongsTo(Curso::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeDoCurso(Builder $query, string $nomeDoCurso): Builder
