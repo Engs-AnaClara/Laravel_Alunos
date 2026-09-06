@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Alunos</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Alunos')
+
+@section('content')
     <h1>Lista de Alunos</h1>
 
     <ul>
@@ -12,5 +10,4 @@
         <li>{{ $alunos[1] }}</li>
         <li>{{ $alunos[2] }}</li>
     </ul>
-</body>
-</html>
+@endsection

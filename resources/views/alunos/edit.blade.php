@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Aluno</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Editar Aluno')
+
+@section('content')
     <h1>Editar Aluno</h1>
 
-    <form method="POST" action="/alunos/{{ $id }}">
+    <form method="POST" action="{{ route('alunos.update', $id) }}">
+        @csrf
         @method('PUT')
         <input type="text" name="name" placeholder="Nome">
         <button type="submit">Atualizar</button>
     </form>
-</body>
-</html>
+@endsection
