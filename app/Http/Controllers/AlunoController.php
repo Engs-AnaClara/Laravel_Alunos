@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAlunoRequest;
+use App\Http\Requests\UpdateAlunoRequest;
 use App\Models\Aluno;
-use Illuminate\Http\Request;
 
 class AlunoController extends Controller
 {
@@ -34,16 +35,9 @@ class AlunoController extends Controller
         return view('alunos.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreAlunoRequest $request)
     {
-        $dados = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:alunos,email',
-            'curso' => 'required|string|max:255',
-            'data_nascimento' => 'nullable|date',
-        ]);
-
-        Aluno::create($dados);
+        Aluno::create($request->validated());
 
         return redirect()->route('alunos.index')->with('sucesso', 'Aluno cadastrado com sucesso.');
     }
@@ -62,18 +56,11 @@ class AlunoController extends Controller
         return view('alunos.edit', compact('aluno'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateAlunoRequest $request, string $id)
     {
         $aluno = Aluno::findOrFail($id);
 
-        $dados = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:alunos,email,' . $aluno->id,
-            'curso' => 'required|string|max:255',
-            'data_nascimento' => 'nullable|date',
-        ]);
-
-        $aluno->update($dados);
+        $aluno->update($request->validated());
 
         return redirect()->route('alunos.index')->with('sucesso', 'Aluno atualizado com sucesso.');
     }
