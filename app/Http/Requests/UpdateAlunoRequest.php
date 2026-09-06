@@ -17,7 +17,7 @@ class UpdateAlunoRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('alunos', 'email')->ignore($this->route('aluno'))],
-            'curso' => 'required|string|max:255',
+            'curso_id' => 'required|exists:cursos,id',
             'data_nascimento' => 'nullable|date',
         ];
     }
@@ -30,7 +30,8 @@ class UpdateAlunoRequest extends FormRequest
             'email.required' => 'O email é obrigatório.',
             'email.email' => 'Informe um email válido.',
             'email.unique' => 'Já existe um aluno cadastrado com este email.',
-            'curso.required' => 'O curso é obrigatório.',
+            'curso_id.required' => 'O curso é obrigatório.',
+            'curso_id.exists' => 'Selecione um curso válido.',
             'data_nascimento.date' => 'A data de nascimento deve ser uma data válida.',
         ];
     }

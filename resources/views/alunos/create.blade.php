@@ -14,8 +14,12 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" value="{{ old('email') }}">
 
-        <label for="curso">Curso</label>
-        <input type="text" id="curso" name="curso" value="{{ old('curso') }}">
+        <label for="curso_id">Curso</label>
+        <select id="curso_id" name="curso_id">
+            @foreach ($cursos as $curso)
+                <option value="{{ $curso->id }}" @selected(old('curso_id') == $curso->id)>{{ $curso->nome }}</option>
+            @endforeach
+        </select>
 
         <label for="data_nascimento">Data de Nascimento</label>
         <input type="date" id="data_nascimento" name="data_nascimento" value="{{ old('data_nascimento') }}">

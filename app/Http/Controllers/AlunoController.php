@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAlunoRequest;
 use App\Http\Requests\UpdateAlunoRequest;
 use App\Models\Aluno;
+use App\Models\Curso;
 
 class AlunoController extends Controller
 {
@@ -25,14 +26,16 @@ class AlunoController extends Controller
 
     public function index()
     {
-        $alunos = Aluno::orderBy('name')->get();
+        $alunos = Aluno::with('curso')->orderBy('name')->get();
 
         return view('alunos.index', compact('alunos'));
     }
 
     public function create()
     {
-        return view('alunos.create');
+        $cursos = Curso::orderBy('nome')->get();
+
+        return view('alunos.create', compact('cursos'));
     }
 
     public function store(StoreAlunoRequest $request)
@@ -44,7 +47,7 @@ class AlunoController extends Controller
 
     public function show(string $id)
     {
-        $aluno = Aluno::findOrFail($id);
+        $aluno = Aluno::with('curso')->findOrFail($id);
 
         return view('alunos.show', compact('aluno'));
     }
@@ -52,8 +55,9 @@ class AlunoController extends Controller
     public function edit(string $id)
     {
         $aluno = Aluno::findOrFail($id);
+        $cursos = Curso::orderBy('nome')->get();
 
-        return view('alunos.edit', compact('aluno'));
+        return view('alunos.edit', compact('aluno', 'cursos'));
     }
 
     public function update(UpdateAlunoRequest $request, string $id)

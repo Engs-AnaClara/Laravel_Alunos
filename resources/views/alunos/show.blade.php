@@ -7,6 +7,6 @@
 
     <p>Nome: {{ $aluno->name }}</p>
     <p>Email: {{ $aluno->email }}</p>
-    <p>Curso: {{ $aluno->curso }}</p>
+    <p>Curso: {{ $aluno->curso->nome }}</p>
     <p>Data de Nascimento: {{ $aluno->data_nascimento }}</p>
 @endsection
