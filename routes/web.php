@@ -33,6 +33,14 @@ Route::get('/usuario/{id}', function ($id) {
     return "Usuário com ID: {$id}";
 });
 
+Route::get('/admin', function () {
+    return 'Área restrita ao Admin.';
+})->middleware(['auth', 'role:admin']);
+
+Route::get('/professor', function () {
+    return 'Área restrita ao Professor.';
+})->middleware(['auth', 'role:professor,admin']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
