@@ -15,6 +15,7 @@ Route::get('/contato', function () {
     return 'Esta é a página de Contato.';
 });
 
+Route::get('/alunos/consultas/demo', [AlunoController::class, 'consultas']);
 Route::resource('alunos', AlunoController::class);
 
 Route::get('/produto/{id}', function ($id) {
