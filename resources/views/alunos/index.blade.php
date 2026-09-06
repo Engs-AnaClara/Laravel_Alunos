@@ -10,7 +10,7 @@
             @foreach ($alunos as $aluno)
                 <li>
                     <a href="{{ route('alunos.show', $aluno) }}">{{ $aluno->name }}</a>
-                    - {{ $aluno->curso->nome }}
+                    - <a href="{{ route('cursos.show', $aluno->curso) }}">{{ $aluno->curso->nome }}</a>
                     <a href="{{ route('alunos.edit', $aluno) }}">Editar</a>
                     <form method="POST" action="{{ route('alunos.destroy', $aluno) }}" style="display:inline">
                         @csrf

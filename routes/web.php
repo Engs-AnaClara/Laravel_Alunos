@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,7 @@ Route::get('/contato', function () {
 
 Route::get('/alunos/consultas/demo', [AlunoController::class, 'consultas']);
 Route::resource('alunos', AlunoController::class);
+Route::get('/cursos/{curso}', [CursoController::class, 'show'])->name('cursos.show');
 
 Route::get('/produto/{id}', function ($id) {
     return "Produto com ID: {$id}";
