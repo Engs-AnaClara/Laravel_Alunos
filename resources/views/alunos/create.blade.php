@@ -7,10 +7,19 @@
 
     <form method="POST" action="{{ route('alunos.store') }}">
         @csrf
-        <input type="text" name="name" placeholder="Nome" value="{{ old('name') }}">
-        <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
-        <input type="text" name="curso" placeholder="Curso" value="{{ old('curso') }}">
-        <input type="date" name="data_nascimento" value="{{ old('data_nascimento') }}">
+
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name" value="{{ old('name') }}">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="{{ old('email') }}">
+
+        <label for="curso">Curso</label>
+        <input type="text" id="curso" name="curso" value="{{ old('curso') }}">
+
+        <label for="data_nascimento">Data de Nascimento</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" value="{{ old('data_nascimento') }}">
+
         <button type="submit">Salvar</button>
     </form>
 
