@@ -5,6 +5,8 @@
     <title>@yield('title', 'Sistema de Alunos')</title>
 </head>
 <body>
+    @include('partials.alerta')
+
     <main>
         @yield('content')
     </main>
