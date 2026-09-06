@@ -20,4 +20,17 @@ class StoreAlunoRequest extends FormRequest
             'data_nascimento' => 'nullable|date',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'O nome do aluno é obrigatório.',
+            'name.max' => 'O nome não pode ter mais de 255 caracteres.',
+            'email.required' => 'O email é obrigatório.',
+            'email.email' => 'Informe um email válido.',
+            'email.unique' => 'Já existe um aluno cadastrado com este email.',
+            'curso.required' => 'O curso é obrigatório.',
+            'data_nascimento.date' => 'A data de nascimento deve ser uma data válida.',
+        ];
+    }
 }
